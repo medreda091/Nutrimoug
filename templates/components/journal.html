@@ -1,0 +1,98 @@
+<div class="tab-content" id="journal">
+
+    <div class="section-card">
+
+        <h2>Journal alimentaire 🥗</h2>
+
+        <form action="/ajouter-aliment" method="POST" class="modern-form">
+
+            <input
+                type="hidden"
+                name="user_id"
+                value="{{ utilisateur.id }}"
+            >
+
+            <select name="repas" required>
+
+                <option value="">Choisir un repas</option>
+
+                <option value="Petit-déjeuner">Petit-déjeuner</option>
+
+                <option value="Déjeuner">Déjeuner</option>
+
+                <option value="Collation">Collation</option>
+
+                <option value="Dîner">Dîner</option>
+
+            </select>
+
+            <input
+                type="text"
+                name="aliment"
+                placeholder="Aliment consommé"
+                required
+            >
+
+            <button type="submit">
+
+                Ajouter
+
+            </button>
+
+        </form>
+
+    </div>
+
+    <div class="section-card">
+
+        <h2>Historique alimentaire</h2>
+
+        {% if journal %}
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Repas</th>
+                        <th>Aliment</th>
+                        <th>Date</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for entree in journal %}
+
+                    <tr>
+
+                        <td>{{ entree.repas }}</td>
+
+                        <td>{{ entree.aliment }}</td>
+
+                        <td>{{ entree.date_ajout }}</td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <p>Aucun aliment enregistré.</p>
+
+        {% endif %}
+
+    </div>
+
+</div>
