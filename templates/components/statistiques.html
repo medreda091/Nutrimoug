@@ -1,0 +1,72 @@
+<div class="tab-content" id="stats">
+
+    <div class="section-card">
+
+        <h2>Statistiques avancées 📊</h2>
+
+        <div class="cards-container">
+
+            <div class="card-stat">
+
+                <div>
+
+                    <h3>Poids actuel</h3>
+
+                    <p>{{ utilisateur.poids }} kg</p>
+
+                </div>
+
+            </div>
+
+            <div class="card-stat">
+
+                <div>
+
+                    <h3>Poids minimum</h3>
+
+                    <p>{{ poids_min }} kg</p>
+
+                </div>
+
+            </div>
+
+            <div class="card-stat">
+
+                <div>
+
+                    <h3>Poids maximum</h3>
+
+                    <p>{{ poids_max }} kg</p>
+
+                </div>
+
+            </div>
+
+            <div class="card-stat">
+
+                <div>
+
+                    <h3>Poids moyen</h3>
+
+                    <p>{{ poids_moyen }} kg</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="section-card">
+
+        <h2>Graphique d'évolution du poids</h2>
+
+        <canvas
+            id="graphiquePoids"
+            data-poids='{{ historique_graph | map(attribute="poids") | list | tojson | safe }}'>
+        </canvas>
+
+    </div>
+
+</div>

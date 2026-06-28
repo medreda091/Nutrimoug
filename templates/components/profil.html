@@ -1,0 +1,137 @@
+<div class="tab-content active" id="profil">
+
+    {% include "components/topbar.html" %}
+
+    <div class="cards-container">
+
+        <div class="card-stat">
+
+            <div class="card-icon">
+                <i class="fa-solid fa-fire"></i>
+            </div>
+
+            <div>
+                <h3>Calories</h3>
+                <p>{{ calories }}</p>
+            </div>
+
+        </div>
+
+        <div class="card-stat">
+
+            <div class="card-icon">
+                <i class="fa-solid fa-heart-pulse"></i>
+            </div>
+
+            <div>
+                <h3>IMC</h3>
+                <p>{{ imc }}</p>
+            </div>
+
+        </div>
+
+        <div class="card-stat">
+
+            <div class="card-icon">
+                <i class="fa-solid fa-droplet"></i>
+            </div>
+
+            <div>
+                <h3>Eau</h3>
+                <p>{{ eau }} L</p>
+            </div>
+
+        </div>
+
+        <div class="card-stat">
+
+            <div class="card-icon">
+                <i class="fa-solid fa-bullseye"></i>
+            </div>
+
+            <div>
+                <h3>Objectif</h3>
+                <p>{{ utilisateur.objectif }}</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="section-card">
+
+        <h2>Profil utilisateur</h2>
+
+        <div class="info-grid">
+
+            <div class="info-box">
+                <h4>Nom</h4>
+                <p>{{ utilisateur.nom }}</p>
+            </div>
+
+            <div class="info-box">
+                <h4>Âge</h4>
+                <p>{{ utilisateur.age }} ans</p>
+            </div>
+
+            <div class="info-box">
+                <h4>Sexe</h4>
+                <p>{{ utilisateur.sexe }}</p>
+            </div>
+
+            <div class="info-box">
+                <h4>Taille</h4>
+                <p>{{ utilisateur.taille }} cm</p>
+            </div>
+
+            <div class="info-box">
+                <h4>Poids</h4>
+                <p>{{ utilisateur.poids }} kg</p>
+            </div>
+
+            <div class="info-box">
+                <h4>Activité</h4>
+                <p>{{ utilisateur.activite }}</p>
+            </div>
+
+            <div class="info-box">
+                <h4>Allergies</h4>
+                <p>{{ utilisateur.allergies }}</p>
+            </div>
+
+            <div class="info-box">
+                <h4>Préférence</h4>
+                <p>{{ utilisateur.preference_alimentaire }}</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="section-card">
+
+        <h2>Indice de Masse Corporelle</h2>
+
+        <div class="info-grid">
+
+            <div class="info-box">
+
+                <h4>IMC</h4>
+
+                <p>{{ imc }}</p>
+
+            </div>
+
+            <div class="info-box">
+
+                <h4>Catégorie</h4>
+
+                <p>{{ categorie_imc }}</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

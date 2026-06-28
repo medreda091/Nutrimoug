@@ -1,0 +1,37 @@
+<div class="tab-content" id="recettes">
+
+    <div class="section-card">
+
+        <h2>Recettes recommandées 👨‍🍳</h2>
+
+        <div class="menu-grid">
+
+            {% for recette in recettes %}
+
+            <div class="menu-card">
+
+                <img
+                    src="{{ url_for('static', filename='assets/images/' ~ recette.image) }}"
+                    alt="{{ recette.nom }}"
+                    class="recette-image"
+                >
+
+                <h3>{{ recette.nom }}</h3>
+
+                <p class="recette-calories">
+                    🔥 {{ recette.calories }} kcal
+                </p>
+
+                <button class="auth-btn">
+                    Voir la recette
+                </button>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
