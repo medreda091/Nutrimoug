@@ -1,0 +1,74 @@
+<div class="tab-content" id="favoris">
+
+    <div class="section-card">
+
+        <h2>❤️ Mes recettes favorites</h2>
+
+        {% if favoris %}
+
+        <div class="recettes-grid">
+
+            {% for recette in favoris %}
+
+            <div class="recipe-card">
+
+                <img
+                    src="{{ url_for('static', filename='assets/images/' ~ recette.image) }}"
+                    alt="{{ recette.nom }}"
+                >
+
+                <div class="recipe-content">
+
+                    <h3>{{ recette.nom }}</h3>
+
+                    <p>🔥 {{ recette.calories }} kcal</p>
+
+                <div class="recipe-actions">
+
+                    <button
+                        class="recipe-btn voir-favori"
+
+                        data-nom="{{ recette.nom }}"
+                        data-image="{{ url_for('static', filename='assets/images/' ~ recette.image) }}"
+                        data-calories="{{ recette.calories }}"
+                        data-proteines="{{ recette.proteines }}"
+                        data-glucides="{{ recette.glucides }}"
+                        data-lipides="{{ recette.lipides }}"
+                        data-temps="{{ recette.temps }}"
+                        data-portions="{{ recette.portions }}"
+                        data-objectif="{{ recette.objectif }}"
+                        data-ingredients="{{ recette.ingredients | join(', ') }}"
+                        data-preparation="{{ recette.preparation | join(' | ') }}"
+
+                    >
+
+                        👁 Voir
+
+                    </button>
+
+                    <button
+                        class="favorite-btn supprimer-favori"
+                        data-recette="{{ recette.nom }}"
+                    >
+                        🗑 Supprimer
+                    </button>
+
+                </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <p>Aucune recette favorite.</p>
+
+        {% endif %}
+
+    </div>
+
+</div>

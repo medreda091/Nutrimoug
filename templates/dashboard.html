@@ -31,6 +31,10 @@
 
     {% include "components/recettes.html" %}
 
+    {% include "components/favoris.html" %}
+
+    {% include "components/planning.html" %}
+
     {% include "components/poids.html" %}
 
     {% include "components/journal.html" %}
@@ -43,6 +47,13 @@
 
 <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
 
+<script src="{{ url_for('static', filename='js/modal.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/recettes.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/favoris.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/planning.js') }}"></script>
 </body>
 
 </html>

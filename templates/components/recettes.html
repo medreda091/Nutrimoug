@@ -4,27 +4,44 @@
 
         <h2>Recettes recommandées 👨‍🍳</h2>
 
-        <div class="menu-grid">
+        <div class="recettes-grid">
 
             {% for recette in recettes %}
 
-            <div class="menu-card">
+            <div class="recipe-card">
 
                 <img
                     src="{{ url_for('static', filename='assets/images/' ~ recette.image) }}"
                     alt="{{ recette.nom }}"
-                    class="recette-image"
                 >
 
-                <h3>{{ recette.nom }}</h3>
+                <div class="recipe-content">
 
-                <p class="recette-calories">
-                    🔥 {{ recette.calories }} kcal
-                </p>
+                    <h3>{{ recette.nom }}</h3>
 
-                <button class="auth-btn">
-                    Voir la recette
-                </button>
+                    <p>🔥 {{ recette.calories }} kcal</p>
+
+                    <button
+                        class="recipe-btn"
+
+                        data-nom="{{ recette.nom }}"
+                        data-image="{{ url_for('static', filename='assets/images/' ~ recette.image) }}"
+                        data-calories="{{ recette.calories }}"
+                        data-proteines="{{ recette.proteines }}"
+                        data-glucides="{{ recette.glucides }}"
+                        data-lipides="{{ recette.lipides }}"
+                        data-temps="{{ recette.temps }}"
+                        data-portions="{{ recette.portions }}"
+                        data-objectif="{{ recette.objectif }}"
+                        data-ingredients="{{ recette.ingredients | join(', ') }}"
+                        data-preparation="{{ recette.preparation | join(' | ') }}"
+                    >
+
+                        Voir la recette
+
+                    </button>
+
+                </div>
 
             </div>
 
@@ -33,5 +50,109 @@
         </div>
 
     </div>
+
+</div>
+
+
+<div id="recipeModal" class="modal">
+
+    <div class="modal-content">
+
+        <span class="close">&times;</span>
+
+        <img id="modalImage">
+
+        <h2 id="modalNom"></h2>
+
+        <div class="nutrition-badges">
+
+            <span id="modalCalories"></span>
+
+            <span id="modalProteines"></span>
+
+            <span id="modalGlucides"></span>
+
+            <span id="modalLipides"></span>
+
+        </div>
+
+        <p><strong>⏱ Temps :</strong> <span id="modalTemps"></span></p>
+
+        <p><strong>👥 Portions :</strong> <span id="modalPortions"></span></p>
+
+        <p><strong>🎯 Objectif :</strong> <span id="modalObjectif"></span></p>
+
+        <h3>🛒 Ingrédients</h3>
+
+        <ul id="modalIngredients"></ul>
+
+        <h3>👨‍🍳 Préparation</h3>
+
+        <ol id="modalPreparation"></ol>
+
+        <div class="recipe-actions">
+
+            <button
+                id="btnFavori"
+                class="favorite-btn"
+            >
+                ❤️ Ajouter aux favoris
+            </button>
+
+            <button id="btnPlanning">
+
+                📅 Ajouter au planning
+
+            </button>
+
+        </div>
+
+    </div>
+<div id="planningModal" class="modal">
+
+    <div class="modal-content planning-modal">
+
+        <span class="close-planning">&times;</span>
+
+        <h2>📅 Ajouter au planning</h2>
+
+        <div class="planning-form">
+
+            <label>Jour</label>
+
+            <select id="planningJour">
+
+                <option>Lundi</option>
+                <option>Mardi</option>
+                <option>Mercredi</option>
+                <option>Jeudi</option>
+                <option>Vendredi</option>
+                <option>Samedi</option>
+                <option>Dimanche</option>
+
+            </select>
+
+            <label>Repas</label>
+
+            <select id="planningRepas">
+
+                <option>Petit-déjeuner</option>
+                <option>Déjeuner</option>
+                <option>Collation</option>
+                <option>Dîner</option>
+
+            </select>
+
+            <button id="validerPlanning">
+
+                Ajouter au planning
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
 
 </div>

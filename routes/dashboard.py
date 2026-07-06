@@ -109,7 +109,52 @@ def login():
                 poids_min = poids
                 poids_max = poids
                 poids_moyen = poids
+            
+            curseur.execute(
+                """
+                SELECT recette
+                FROM favoris
+                WHERE user_id=%s
+                """,
+                (utilisateur["id"],)
+            )
 
+            favoris_db = curseur.fetchall()
+
+            favoris = []
+
+            for favori in favoris_db:
+
+                for recette in recettes:
+
+                    if recette["nom"] == favori["recette"]:
+
+                        favoris.append(recette)
+
+            
+            
+            curseur.execute(
+                """
+                SELECT *
+                FROM planning_repas
+                WHERE user_id=%s
+                ORDER BY
+                FIELD(
+                    jour,
+                    'Lundi',
+                    'Mardi',
+                    'Mercredi',
+                    'Jeudi',
+                    'Vendredi',
+                    'Samedi',
+                    'Dimanche'
+                )
+                """,
+                (utilisateur["id"],)
+            )
+
+            planning = curseur.fetchall()
+            
             return render_template(
 
                 "dashboard.html",
@@ -135,6 +180,10 @@ def login():
                 menu=menu,
 
                 recettes=recettes,
+
+                favoris=favoris,
+
+                planning=planning,
 
                 historique=historique,
 
