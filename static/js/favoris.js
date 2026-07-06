@@ -1,4 +1,5 @@
-const btnFavori = document.getElementById("btnFavori");
+const btnFavori =
+    document.getElementById("btnFavori");
 
 btnFavori.addEventListener("click", () => {
 
@@ -8,26 +9,31 @@ btnFavori.addEventListener("click", () => {
 
         headers: {
 
-            "Content-Type": "application/x-www-form-urlencoded"
+            "Content-Type":
+                "application/x-www-form-urlencoded"
 
         },
 
         body:
             "recette=" +
-            encodeURIComponent(recetteSelectionnee)
+            encodeURIComponent(
+                recetteSelectionnee
+            )
 
     })
 
-    .then((response) => response.json())
+    .then(response => response.json())
 
-    .then((data) => {
+    .then(data => {
 
         if(data.success){
 
-            btnFavori.innerHTML =
-                "❤️ Ajoutée aux favoris";
+            sessionStorage.setItem(
+                "activeTab",
+                "favoris"
+            );
 
-            btnFavori.disabled = true;
+            location.reload();
 
         }
 
@@ -41,12 +47,12 @@ btnFavori.addEventListener("click", () => {
 
 });
 
-const boutonsSuppression =
+const boutonsSuppressionFavori =
     document.querySelectorAll(".supprimer-favori");
 
-boutonsSuppression.forEach((bouton)=>{
+boutonsSuppressionFavori.forEach((bouton) => {
 
-    bouton.addEventListener("click",()=>{
+    bouton.addEventListener("click", () => {
 
         if(!confirm("Supprimer cette recette des favoris ?")){
 
@@ -54,13 +60,14 @@ boutonsSuppression.forEach((bouton)=>{
 
         }
 
-        fetch("/supprimer_favori",{
+        fetch("/supprimer_favori", {
 
-            method:"POST",
+            method: "POST",
 
-            headers:{
+            headers: {
 
-                "Content-Type":"application/x-www-form-urlencoded"
+                "Content-Type":
+                    "application/x-www-form-urlencoded"
 
             },
 
@@ -72,31 +79,18 @@ boutonsSuppression.forEach((bouton)=>{
 
         })
 
-        .then((response)=>response.json())
+        .then(response => response.json())
 
-        .then((data)=>{
+        .then(data => {
 
             if(data.success){
 
-                bouton
-                    .closest(".recipe-card")
-                    .remove();
+                sessionStorage.setItem(
+                    "activeTab",
+                    "favoris"
+                );
 
-                if(document.querySelectorAll("#favoris .recipe-card").length===0){
-
-                    document.getElementById("favoris").innerHTML=`
-
-                        <div class="section-card">
-
-                            <h2>❤️ Mes recettes favorites</h2>
-
-                            <p>Aucune recette favorite.</p>
-
-                        </div>
-
-                    `;
-
-                }
+                location.reload();
 
             }
 

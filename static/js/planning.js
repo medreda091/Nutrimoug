@@ -1,8 +1,7 @@
+console.log("planning.js chargé");
+
 const planningModal =
     document.getElementById("planningModal");
-
-const btnPlanning =
-    document.getElementById("btnPlanning");
 
 const closePlanning =
     document.querySelector(".close-planning");
@@ -10,11 +9,7 @@ const closePlanning =
 const btnValiderPlanning =
     document.getElementById("validerPlanning");
 
-btnPlanning.addEventListener("click", () => {
 
-    planningModal.classList.add("show");
-
-});
 
 closePlanning.addEventListener("click", () => {
 
@@ -24,13 +19,15 @@ closePlanning.addEventListener("click", () => {
 
 window.addEventListener("click", (e) => {
 
-    if(e.target === planningModal){
+    if (e.target === planningModal) {
 
         planningModal.classList.remove("show");
 
     }
 
 });
+
+
 
 btnValiderPlanning.addEventListener("click", () => {
 
@@ -42,12 +39,12 @@ btnValiderPlanning.addEventListener("click", () => {
 
     fetch("/planning", {
 
-        method:"POST",
+        method: "POST",
 
-        headers:{
+        headers: {
 
             "Content-Type":
-            "application/x-www-form-urlencoded"
+                "application/x-www-form-urlencoded"
 
         },
 
@@ -67,19 +64,74 @@ btnValiderPlanning.addEventListener("click", () => {
 
     .then(data => {
 
-        if(data.success){
+        if (data.success) {
 
             alert("✅ Recette ajoutée au planning.");
 
             planningModal.classList.remove("show");
 
+            sessionStorage.setItem("activeTab", "planning");
+
+            location.reload();
+
         }
 
-        else{
+        else {
 
             alert(data.message);
 
         }
+
+    });
+
+});
+
+
+const boutonsSuppressionPlanning =
+    document.querySelectorAll(".supprimer-planning");
+
+boutonsSuppressionPlanning.forEach((bouton) => {
+
+    bouton.addEventListener("click", () => {
+
+        fetch("/supprimer_planning", {
+
+            method: "POST",
+
+            headers: {
+
+                "Content-Type":
+                    "application/x-www-form-urlencoded"
+
+            },
+
+            body:
+                "id=" +
+                encodeURIComponent(
+                    bouton.dataset.id
+                )
+
+        })
+
+        .then(response => response.json())
+
+        .then(data => {
+
+            if (data.success) {
+
+                sessionStorage.setItem("activeTab", "planning");
+
+                location.reload();
+
+            }
+
+            else {
+
+                alert("Erreur lors de la suppression.");
+
+            }
+
+        });
 
     });
 

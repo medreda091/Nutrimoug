@@ -1,6 +1,13 @@
 const modal = document.getElementById("recipeModal");
 
-const closeBtn = document.querySelector(".close");
+const closeBtn =
+    document.querySelector(".close");
+
+const btnPlanning =
+    document.getElementById("btnPlanning");
+
+const planningModalRecette =
+    document.getElementById("planningModal");
 
 let recetteSelectionnee = "";
 
@@ -97,10 +104,22 @@ window.addEventListener("click", (e) => {
 
 document.addEventListener("keydown", (e) => {
 
-    if(e.key === "Escape" && modal.classList.contains("show")){
+    if(
+        e.key === "Escape"
+        &&
+        modal.classList.contains("show")
+    ){
 
         fermerModal();
 
     }
+
+});
+
+btnPlanning.addEventListener("click", () => {
+
+    modal.classList.remove("show");
+
+    planningModalRecette.classList.add("show");
 
 });

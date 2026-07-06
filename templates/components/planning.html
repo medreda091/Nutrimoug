@@ -2,57 +2,156 @@
 
     <div class="section-card">
 
-        <h2>📅 Mon planning de la semaine</h2>
+        <div class="calories-progress-card">
 
-        {% if planning %}
+            <div class="calories-header">
 
-            <div class="planning-grid">
+                <div>
 
-                {% for repas in planning %}
+                    <h3>🔥 Objectif calorique</h3>
 
-                <div class="planning-card">
+                    <p id="calorieText">
 
-                    <h3>{{ repas.jour }}</h3>
-
-                    <p>
-
-                        <strong>{{ repas.repas }}</strong>
-
-                    </p>
-
-                    <p>
-
-                        {{ repas.recette }}
+                        {{ calories_consommees }}
+                        /
+                        {{ calories|round|int }}
+                        kcal
 
                     </p>
-
-                    <button
-
-                        class="supprimer-planning"
-
-                        data-id="{{ repas.id }}"
-
-                    >
-
-                        🗑 Supprimer
-
-                    </button>
 
                 </div>
 
-                {% endfor %}
+                <div class="calories-left">
+
+                    <span id="caloriesLeft">
+
+                        {{ calories_restantes }}
+                        kcal restantes
+
+                    </span>
+
+                </div>
 
             </div>
 
-        {% else %}
+            <div class="progress-bar">
 
-            <p>
+                <div
 
-                Aucun repas planifié.
+                    id="progressFill"
 
-            </p>
+                    class="progress-fill"
 
-        {% endif %}
+                    style="width: {{ pourcentage_calories }}%;"
+
+                ></div>
+
+            </div>
+
+        </div>
+
+        <h2>📅 Mon planning de la semaine</h2>
+
+        <div class="planning-week">
+
+            {% set jours = [
+                "Lundi",
+                "Mardi",
+                "Mercredi",
+                "Jeudi",
+                "Vendredi",
+                "Samedi",
+                "Dimanche"
+            ] %}
+
+            {% for jour in jours %}
+
+            <div class="day-card">
+
+                <div class="day-header">
+
+                    {{ jour }}
+
+                </div>
+
+                {% set trouve = false %}
+
+                {% for repas in planning %}
+
+                    {% if repas.jour == jour %}
+
+                    {% set trouve = true %}
+
+                    <div class="meal-card">
+
+                        {% if repas.image %}
+
+                        <img
+                            src="{{ url_for('static', filename='assets/images/' ~ repas.image) }}"
+                            class="planning-image"
+                            alt="{{ repas.recette }}"
+                        >
+
+                        {% endif %}
+
+                        <div class="meal-type">
+
+                            {{ repas.repas }}
+
+                        </div>
+
+                        <div class="meal-name">
+
+                            {{ repas.recette }}
+
+                        </div>
+
+                        <div class="meal-calories">
+
+                            🔥 {{ repas.calories }} kcal
+
+                        </div>
+
+                        <button
+                            class="supprimer-planning"
+                            data-id="{{ repas.id }}"
+                        >
+
+                            🗑 Supprimer
+
+                        </button>
+
+                    </div>
+
+                    {% endif %}
+
+                {% endfor %}
+
+                {% if not trouve %}
+
+                <div class="empty-meal">
+
+                    <p>
+
+                        🍽️ Aucun repas planifié
+
+                    </p>
+
+                    <small>
+
+                        Ajoutez un repas depuis l'onglet <strong>Recettes</strong>.
+
+                    </small>
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+            {% endfor %}
+
+        </div>
 
     </div>
 
