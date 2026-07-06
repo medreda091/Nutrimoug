@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import Blueprint, render_template, request, session
 
 from database.db import connexion
@@ -33,6 +34,7 @@ def login():
         )
 
         utilisateur = curseur.fetchone()
+
         print(email)
         print(password)
         print(utilisateur)
@@ -73,7 +75,6 @@ def login():
             )
 
             recettes = recuperer_recettes()
-
             curseur.execute(
                 """
                 SELECT *
@@ -109,7 +110,7 @@ def login():
                 poids_min = poids
                 poids_max = poids
                 poids_moyen = poids
-            
+
             curseur.execute(
                 """
                 SELECT recette
@@ -131,8 +132,6 @@ def login():
 
                         favoris.append(recette)
 
-            
-            
             curseur.execute(
                 """
                 SELECT *
@@ -154,6 +153,79 @@ def login():
             )
 
             planning = curseur.fetchall()
+            
+            jours = [
+                "Lundi",
+                "Mardi",
+                "Mercredi",
+                "Jeudi",
+                "Vendredi",
+                "Samedi",
+                "Dimanche"
+            ]
+
+            jour_actuel = jours[datetime.now().weekday()]
+
+            calories_consommees = 0
+
+            proteines_consommees = 0
+
+            glucides_consommes = 0
+
+            lipides_consommes = 0
+
+            for repas in planning:
+
+                for recette in recettes:
+
+                    if repas["recette"] == recette["nom"]:
+
+                        repas["image"] = recette["image"]
+
+                        repas["calories"] = recette["calories"]
+
+                        repas["proteines"] = recette["proteines"]
+
+                        repas["glucides"] = recette["glucides"]
+
+                        repas["lipides"] = recette["lipides"]
+
+                        if repas["jour"] == jour_actuel:
+
+                            calories_consommees += recette["calories"]
+
+                            proteines_consommees += recette["proteines"]
+
+                            glucides_consommes += recette["glucides"]
+
+                            lipides_consommes += recette["lipides"]
+
+                        break
+
+            calories_restantes = max(
+                0,
+                calories - calories_consommees
+            )
+
+            pourcentage_calories = 0 if calories == 0 else min(
+                100,
+                round(calories_consommees / calories * 100)
+            )
+
+            pourcentage_proteines = 0 if proteines == 0 else min(
+                100,
+                round(proteines_consommees / proteines * 100)
+            )
+
+            pourcentage_glucides = 0 if glucides == 0 else min(
+                100,
+                round(glucides_consommes / glucides * 100)
+            )
+
+            pourcentage_lipides = 0 if lipides == 0 else min(
+                100,
+                round(lipides_consommes / lipides * 100)
+            )
             
             return render_template(
 
@@ -195,9 +267,28 @@ def login():
 
                 poids_max=poids_max,
 
-                poids_moyen=poids_moyen
+                poids_moyen=poids_moyen,
+
+                calories_consommees=calories_consommees,
+
+                calories_restantes=calories_restantes,
+
+                proteines_consommees=proteines_consommees,
+
+                glucides_consommes=glucides_consommes,
+
+                lipides_consommes=lipides_consommes,
+
+                pourcentage_calories=pourcentage_calories,
+
+                pourcentage_proteines=pourcentage_proteines,
+
+                pourcentage_glucides=pourcentage_glucides,
+
+                pourcentage_lipides=pourcentage_lipides
 
             )
+
         return "Email ou mot de passe incorrect"
 
     return render_template("login.html")
