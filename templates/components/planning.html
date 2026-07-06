@@ -1,0 +1,59 @@
+<div class="tab-content" id="planning">
+
+    <div class="section-card">
+
+        <h2>📅 Mon planning de la semaine</h2>
+
+        {% if planning %}
+
+            <div class="planning-grid">
+
+                {% for repas in planning %}
+
+                <div class="planning-card">
+
+                    <h3>{{ repas.jour }}</h3>
+
+                    <p>
+
+                        <strong>{{ repas.repas }}</strong>
+
+                    </p>
+
+                    <p>
+
+                        {{ repas.recette }}
+
+                    </p>
+
+                    <button
+
+                        class="supprimer-planning"
+
+                        data-id="{{ repas.id }}"
+
+                    >
+
+                        🗑 Supprimer
+
+                    </button>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <p>
+
+                Aucun repas planifié.
+
+            </p>
+
+        {% endif %}
+
+    </div>
+
+</div>

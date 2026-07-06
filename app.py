@@ -5,6 +5,10 @@ from routes.dashboard import dashboard
 from routes.poids import poids
 from routes.journal import journal
 from routes.profil import profil
+from routes.favoris import favoris
+from routes.planning import planning
+
+
 
 app = Flask(
     __name__,
@@ -15,9 +19,12 @@ app = Flask(
 app.secret_key = "nutrimoug_secret"
 
 app.register_blueprint(auth)
-print(app.static_folder)
-print(app.template_folder)
+app.register_blueprint(dashboard)
+app.register_blueprint(poids)
+app.register_blueprint(journal)
+app.register_blueprint(profil)
+app.register_blueprint(favoris)
+app.register_blueprint(planning)
+
 if __name__ == "__main__":
-    print("STATIC =", app.static_folder)
-    print("TEMPLATES =", app.template_folder)
     app.run(debug=True)
