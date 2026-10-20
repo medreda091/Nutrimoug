@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 
 from routes.auth import auth
@@ -16,7 +18,7 @@ app = Flask(
     template_folder="templates"
 )
 
-app.secret_key = "REMOVED_FLASK_SECRET"
+app.secret_key = os.environ.get("FLASK_SECRET_KEY", "dev-only-change-me-in-production")
 
 app.register_blueprint(auth)
 app.register_blueprint(dashboard)
