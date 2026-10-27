@@ -197,7 +197,7 @@ Visualisation de l'évolution du poids à l'aide de graphiques interactifs.
 
 ## Perspectives d'amélioration
 
-- Génération automatique de menus avec l'intelligence artificielle
+- Génération automatique de menus personnalisés
 - Sécurisation des mots de passe par hachage
 - Export des statistiques au format PDF
 - Notifications de rappel
